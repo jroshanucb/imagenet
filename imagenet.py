@@ -426,13 +426,13 @@ def validate(val_loader, model, criterion):
 
     return top1.avg
 
-def save_checkpoint(state, is_best, filename='checkpoint.pth.tar'):
+def save_checkpoint(state, is_best, filename='checkpoint_new.pth.tar'):
     # save the model state!
     torch.save(state, filename)
     if is_best:
-        shutil.copyfile(filename, 'model_best.pth.tar')
+        shutil.copyfile(filename, 'model_best_new.pth.tar')
 
-def load_checkpoint(filename='checkpoint.pth.tar'):
+def load_checkpoint(filename='checkpoint_new.pth.tar'):
     # load the model state!
     model = resnet18(pretrained = False, progress = True)
     model.cuda(GPU)
@@ -488,7 +488,7 @@ class ProgressMeter(object):
 
 def adjust_learning_rate(optimizer, epoch):
     """Sets the learning rate to the initial LR decayed by 10 every 30 epochs"""
-    lr = LR * (0.1 ** (epoch // 10))
+    lr = LR * (0.1 ** (epoch // 5))
     for param_group in optimizer.param_groups:
         param_group['lr'] = lr
 
